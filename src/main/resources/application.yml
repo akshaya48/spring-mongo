@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  
+spring:
+  profiles: test
+  data:
+    mongodb:
+      database: test12
+      host: localhost
+      port: 27017
+      
+name: test-YAML
+environment: test
+servers: 
+    - www.abc.test.com
+    - www.xyz.test.com
+    
+  
+  

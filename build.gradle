@@ -30,5 +30,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
 	compile('org.springframework.retry:spring-retry')
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.4.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.4.0'
+	
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
