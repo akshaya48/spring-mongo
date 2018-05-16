@@ -7,23 +7,38 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;  
+import org.springframework.web.client.RestTemplate;
+
+import com.example.config.YAMLConfig;
+import com.example.entity.SportsPerson;
+import com.example.repo.MongoRepo;
+import com.example.util.GeneralUtil;
+import com.example.util.LogExecutionTime;  
 
 @RestController  
 public class HomeController {  
 	
-	@Autowired
+	@Autowired 
 	protected RestTemplate restTemplate;
 	
 	@Autowired
@@ -31,6 +46,8 @@ public class HomeController {
 	
 	@Autowired
 	private MongoRepo mongoRepo;
+	
+	private static final Logger logger = LogManager.getLogger(HomeController.class);
 	
     @RequestMapping( value = "/hello", method = RequestMethod.POST)  
     public <T, K> Object hello(@PathVariable Map<String, Object> pathParamMap,
@@ -55,11 +72,13 @@ public class HomeController {
     	return responseEntity;  
     }
     
-    @RequestMapping( value = "/viewSports", method = RequestMethod.GET)  
+    @LogExecutionTime
+    @GetMapping( value = "/viewSports", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity viewSports(@PathVariable Map<String, Object> pathParamMap,
 			@RequestParam Map<String, Object> reqParamMap, @RequestHeader Map<String, Object> headerMap,
 			HttpServletRequest request) throws Throwable {
        
+    	logger.info("getting sports information ");
     	List<SportsPerson> spList = mongoRepo.viewSports();
     	
     	List<SportsPerson> fl1 = GeneralUtil.applyLogic(spList, sp -> sp.getId() < 130);
@@ -67,6 +86,7 @@ public class HomeController {
     	List<SportsPerson> fl2 = GeneralUtil.applyLogic(spList, GeneralUtil::isGreaterThan130);
     	
     	ResponseEntity responseEntity = new ResponseEntity(fl2, HttpStatus.OK);
+    	logger.info("ends sports information api ");
     	return responseEntity;  
     }
         
@@ -88,4 +108,6 @@ public class HomeController {
 
 		return postResponse;
 	}
+	
+	
 }  

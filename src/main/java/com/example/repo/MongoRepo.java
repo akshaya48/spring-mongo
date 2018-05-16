@@ -1,9 +1,12 @@
-package com.example.demo;
+package com.example.repo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.DataRepo;
+import com.example.entity.SportsPerson;
 
 @Component
 public class MongoRepo {
