@@ -93,12 +93,6 @@ public class HomeController {
     	return responseEntity;  
     }
     
-    /**
-     * to get event
-     * @param request
-     * @return
-     * @throws Throwable
-     */
     @GetMapping(value = "/getEvent")
     public Event getEvent(HttpServletRequest request) throws Throwable {
     	SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
