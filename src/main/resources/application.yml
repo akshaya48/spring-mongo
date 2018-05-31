@@ -20,6 +20,11 @@ environment: test
 servers: 
     - www.abc.test.com
     - www.xyz.test.com
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG    
+    
     
     
   

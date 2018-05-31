@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.config.YAMLConfig;
+import com.example.entity.Event;
 import com.example.entity.SportsPerson;
 import com.example.repo.MongoRepo;
 import com.example.util.GeneralUtil;
@@ -88,6 +91,15 @@ public class HomeController {
     	ResponseEntity responseEntity = new ResponseEntity(fl2, HttpStatus.OK);
     	logger.info("ends sports information api ");
     	return responseEntity;  
+    }
+    
+    @GetMapping(value = "/getEvent")
+    public Event getEvent(HttpServletRequest request) throws Throwable {
+    	SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+    	String toParse = "20-12-2014 02:30:00";
+    	Date date = df.parse(toParse);
+    	Event event = new Event("party", date);
+    	return event;
     }
         
     private void printConfigEnv() {

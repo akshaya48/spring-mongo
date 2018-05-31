@@ -29,7 +29,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "sprortsDetails")
 public class SportsPerson {
 	
-    @JsonProperty("name")
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("name")
     private String name;
 
     @JsonProperty("sport")

@@ -6,7 +6,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan({"com.example.demo", "com.example.config", "com.example.util", "com.example.repo", "com.example.entity"})
+@ComponentScan({"com.example.*"})
 @SpringBootApplication
 public class SpringMongoApplication {
 
