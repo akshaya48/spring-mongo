@@ -75,6 +75,15 @@ public class HomeController {
     	return responseEntity;  
     }
     
+    /**
+     * view sports
+     * @param pathParamMap
+     * @param reqParamMap
+     * @param headerMap
+     * @param request
+     * @return
+     * @throws Throwable
+     */
     @LogExecutionTime
     @GetMapping( value = "/viewSports", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity viewSports(@PathVariable Map<String, Object> pathParamMap,
